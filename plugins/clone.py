@@ -47,7 +47,7 @@ async def send_for_forward(bot, message):
         return await message.reply(f'Error - {e}')
 
     if source_chat.type not in [enums.ChatType.CHANNEL, enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        return await message.reply("I can forward only channels and groups.")
+        return await message.reply("I can forward from only channels and groups.")
 
     # last_msg_id is same to total messages
     if FORWARDING.get(message.from_user.id):
@@ -177,5 +177,5 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
         #if (str(skip_idd.text)).strip() == str(current):
             #return await msg.reply("First Set Skip Number")
         #else:
-        await bot.edit_message_text(-1001631481154, 9, f"{current}")
+        await bot.edit_message_text(skip_chat, skip_msg_id, f"{current}")
         FORWARDING[user_id] = False
