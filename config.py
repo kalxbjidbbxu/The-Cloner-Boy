@@ -9,4 +9,6 @@ class Config(object):
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
     STATUS_CHAT = -1003118824708
     TO_CHAT = -1001506021749 
+    SKIP_CHAT = -1001506021749
+    SKIP_MSG_ID = 14
     
