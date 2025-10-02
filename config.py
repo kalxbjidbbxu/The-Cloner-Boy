@@ -7,6 +7,6 @@ class Config(object):
     TG_USER_SESSION = environ.get('TG_USER_SESSION')
     FILE_CAPTION = environ.get('FILE_CAPTION', '<code>{file_name}</code>')
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
-    STATUS_CHAT = 
-    TO_CHAT = 
+    STATUS_CHAT = -1003118824708
+    TO_CHAT = -1001506021749 
     
