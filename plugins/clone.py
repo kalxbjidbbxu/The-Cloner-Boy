@@ -11,8 +11,9 @@ logger = logging.getLogger(__name__)
 CANCEL = {}
 DELAY = {}
 FORWARDING = {}
+status_chat = Config.STATUS_CHAT
 
-@Client.on_message(filters.regex('cancel') & filters.chat(-1001212782000))
+@Client.on_message(filters.regex('cancel') & filters.chat(status_chat))
 async def cancel_forward(bot, message):
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
@@ -21,7 +22,7 @@ async def cancel_forward(bot, message):
     else:
         await cancel.edit("No Forward Countinue Currently!")
         
-@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.chat(-1001212782000) & filters.incoming)
+@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.chat(status_chat) & filters.incoming)
 async def send_for_forward(bot, message):
     if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
         return await message.reply("You Are Not Allowed To Use This UserBot")    
@@ -59,7 +60,7 @@ async def send_for_forward(bot, message):
     lst_msg_id = last_msg_id
     await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
     
-@Client.on_message(filters.chat(-1001212782000) & filters.command(['set_delay'])) 
+@Client.on_message(filters.chat(status_chat) & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
     try:
         _, delay = message.text.split(" ")
@@ -79,7 +80,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     deleted = 0
     unsupported = 0
     fetched = 0
-    to_channel = -1001447817749
+    to_channel = Config.TO_CHAT
     try:
         skip_idd = await bot.get_messages(-1001631481154, 9)
     except Exception as e:
