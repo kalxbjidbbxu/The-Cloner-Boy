@@ -75,14 +75,16 @@ async def set_delay_number(bot, message):
 
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
-    delay = DELAY.get(user_id) if DELAY.get(user_id) else 4
+    delay = DELAY.get(user_id) if DELAY.get(user_id) else 6
     forwarded = 0
     deleted = 0
     unsupported = 0
     fetched = 0
     to_channel = Config.TO_CHAT
+    skip_chat = Config.SKIP_CHAT
+    skip_msg_id = Config.SKIP_MSG_ID
     try:
-        skip_idd = await bot.get_messages(-1001631481154, 9)
+        skip_idd = await bot.get_messages(skip_chat, skip_msg_id)
     except Exception as e:
         logger.exception(e)
         return await msg.edit(f"Error - {e}")
