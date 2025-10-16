@@ -27,16 +27,16 @@ class Bot(Client):
             sleep_threshold=5,
         )        
 
-    async def start(self):
-        await super().start()
+    async def start(self, *args, **kwargs):
+        await super().start(*args, **kwargs)
         me = await self.get_me()
         self.username = "@" + me.username
         logging.info(
             f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}."
         )
         
-    async def stop(self, *args):
-        await super().stop()
+    async def stop(self, *args, **kwargs):
+        await super().stop(*args, **kwargs)
         logging.info("Bot stopped. Bye.")
 
     async def iter_messages(
@@ -80,6 +80,4 @@ class Bot(Client):
                 yield message
                 current += 1
 
-Bot().run() 
-    
-    
+Bot().run()
