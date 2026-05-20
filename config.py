@@ -7,4 +7,4 @@ class Config(object):
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
     STATUS_CHAT_GROUP_ID = -1003118824708
     STATUS_CHANNEL_ID = -1001631481154
-    STATUS_CHANNEL_MSG_ID = 19
+    STATUS_CHANNEL_MSG_ID = int(environ.get("STATUS_CHANNEL_MSG_ID", "19"))
